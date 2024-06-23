@@ -5,12 +5,12 @@ on:
 jobs:
   release-pull-request:
     permissions:
-      pull-requests: write
+      pull-requests: write # git > setting > actions > general > 「Read and write permissions」の設定があれば不要
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - uses: ruby/setup-ruby@v1
+      - uses: ruby/setup-ruby@v2
         with:
           ruby-version: 3.1
       - run: gem install --no-document git-pr-release
