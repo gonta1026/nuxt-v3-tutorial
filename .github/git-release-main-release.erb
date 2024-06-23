@@ -1,4 +1,6 @@
 Release staging to main <%= Time.now.strftime("%Y-%m-%d") %>
 <% pull_requests.each do |pr| -%>
-<%= pr.to_checklist_item %>
+  <% unless pr.to_checklist_item.include?("github-actions[bot]") -%>
+    <%= pr.to_checklist_item %>
+  <% end -%>
 <% end -%>
