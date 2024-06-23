@@ -1,24 +1,29 @@
-name: CreateReleasePR
-
-on:
-  push:
-    branches:
-      - develop
-jobs:
-  createReleasePR:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 3.1
-      - run: gem install --no-document git-pr-release
-      - run: git-pr-release
-        env:
-          GIT_PR_RELEASE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GIT_PR_RELEASE_BRANCH_PRODUCTION: main
-          GIT_PR_RELEASE_BRANCH_STAGING: develop
-          GIT_PR_RELEASE_LABELS: release
-          GIT_PR_RELEASE_TEMPLATE: .github/git-pr-release.erb
-          TZ: Asia/Tokyo
+ name: release-pr
+ 
+ on:
+   create:
+     branch:
+       - release
+ 
+ jobs:
+   job:
+     runs-on: ubuntu-18.04
+     steps:
+       - uses: actions/checkout@v2
+         with:
+           fetch-depth: 0 # Need to fetch merge history
+ 
+       - name: Set up Ruby
+         uses: actions/setup-ruby@v1
+         with:
+           ruby-version: 2.7.x
+ 
+       - name: Create a release pull request
+         env:
+           GIT_PR_RELEASE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+           GIT_PR_RELEASE_BRANCH_PRODUCTION: master
+           GIT_PR_RELEASE_BRANCH_STAGING: release
+           GIT_PR_RELEASE_TEMPLATE: .git-pr-release-template
+         run: |
+           gem install -N git-pr-release
+           git-pr-release
