@@ -2,6 +2,11 @@ name: Create Release Pull Request
 on:
   push:
     branches: [develop]
+
+permissions:
+  pull-requests: write
+  contents: write
+
 jobs:
   release-pull-request:
     permissions:
