@@ -1,6 +1,4 @@
-Release to develop <%= Time.now.strftime("%Y-%m-%d") %>
+Release develop to staging <%= Time.now.strftime("%Y-%m-%d") %>
 <% pull_requests.each do |pr| -%>
 <%= pr.to_checklist_item %>
 <% end -%>
-
-- - - 
