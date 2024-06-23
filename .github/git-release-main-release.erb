@@ -1,6 +1,4 @@
-Release to main <%= Time.now.strftime("%Y-%m-%d") %>
+Release staging to main <%= Time.now.strftime("%Y-%m-%d") %>
 <% pull_requests.each do |pr| -%>
 <%= pr.to_checklist_item %>
 <% end -%>
-
-- - - 
